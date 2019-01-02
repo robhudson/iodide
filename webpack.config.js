@@ -100,7 +100,6 @@ module.exports = (env) => {
     },
     watchOptions: { poll: true },
     plugins: [
-      ...plugins,
       new LodashModuleReplacementPlugin({
         collections: true,
         paths: true,
@@ -150,7 +149,8 @@ module.exports = (env) => {
       // Use an external helper script, due to https://github.com/1337programming/webpack-shell-plugin/issues/41
       new WebpackShellPlugin({
         onBuildStart: [`bin/install_pyodide ${BUILD_DIR}/pyodide`]
-      })
+      }),
+      ...plugins,
     ],
     devServer: {
       contentBase: path.join(__dirname, 'build'),
